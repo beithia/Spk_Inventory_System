@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments::head"></head>
+    <body>
+        <nav th:replace="fragments::nav"></nav>
+        <div class="container">
+            <h1 class="title" th:text="${title}"></h1>
+            <br><br>
+            <a href="/inventory/customers/add-customer" class="add-item-link" style="margin-left:84.4%">
+                <i class="fa fa-plus fa-lg add-btn"></i>Customer
+            </a>
+            <p th:unless="${customers} and ${customers.iterator().hasNext()}">No Customers to Available Display</p>
+            <table class="table center table-striped">
+                    <tr class="spk-gradient center-align">
+                        <th>Customer</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr th:each="customer, i:${customers}">
+                        <td class="left-align"><span style="padding-right:3%">[[${i.index+1}]].</span>[[${customer.name}]]</td>
+                        <td style="width:15%">
+                            <a style="padding-right:10px" th:href="'edit-customer/' + ${customer.id}" ><i class="fa fa-edit fa-lg spk-blue"></i></a>
+                            <a th:href="'remove/' + ${customer.id}" ><i class="fa fa-trash fa-lg red"></i></a>
+                        </td>
+                    </tr>
+            </table>
+        </div>
+        <footer th:replace="fragments::footer"></footer>
+    </body>
+</html>

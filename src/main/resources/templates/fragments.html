@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <title th:text="${title}">My Cheeses</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/bootstrap-datepicker/bootstrap-datepicker.css" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!--<script src="/js/functions.js" />-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap-datepicker.min.js"></script>
+
+    <link rel=icon href=/favicon-32x32.png>
+    <script>
+        $(document).ready(function() {
+            window.onscroll = function() {myFunction()};
+            var navbar = document.getElementById("nav");
+            var sticky = navbar.offsetTop + 1;
+            function myFunction() {
+                if (window.pageYOffset >= sticky) {
+                    navbar.classList.add("sticky")
+                } else {
+                    navbar.classList.remove("sticky");
+                }
+            }
+
+            //Check if the quantity of a product added to a customer is greater than its stock
+            var stockerror = $('#stockError').val();
+            if(stockerror == 1) {
+                alert("There's not enough stock to fulfill this order. Please add more stock");
+                return false;
+            }
+            //Validate if the customer field is empty or if the 'From' date is later than the 'To' date
+            $('#fetchProdBtn').click(function(){
+                if($('#custSelect').val() == 0) {
+                    $('#validateCustList').text("Please select a valid customer from the list").show();
+                    return false;
+                }
+                if($('#dateFrom').val() > $('#dateTo').val()) {
+                    $('#dateError').text("'From' date must be less than 'To' date").show();
+                    return false;
+                }
+            });
+            var date = new Date();
+            var firstDay = new Date(date.getFullYear(), date.getMonth(), 1).toLocaleDateString();
+            var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).toLocaleDateString();
+            $('.datepicker').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                format: "m/d/yyyy"
+
+            });
+            $("#dateFrom").val(firstDay);
+            $("#dateTo").val(lastDay);
+
+        });
+
+    </script>
+</head>
+<body>
+<nav style="padding:0px" class="navbar navbar-default spk-gradient" th:fragment="nav" id="nav">
+    <!--Logo-->                                                                                                                        
+    <div class="container-fluid table-header">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/inventory"><img class="logo" src="/images/spkLogo.png" /></a>
+        </div>
+        <h3>Inventory Management System</h3>
+        <div class="menu">
+            <a href="/inventory">Home</a> <span class="divider">|</span>
+            <a href="/inventory/products/index">Products</a> <span class="divider">|</span>
+            <a href="/inventory/customers/index">Customers</a>
+        </div>
+    </div>
+</nav>
+
+<footer th:fragment="footer" class="footer">
+    <div style="text-align:center">
+        <a class="" href="/inventory"><img style="padding-top:10px" src="/images/spkLogo.png" /></a><br>
+        <span style="font-size:12px;padding-top:-20px">&copy; 2018 Sparkling Cleaning Services</span>
+    </div>
+</footer>
+
+</body>   
+</html>
+
+
+

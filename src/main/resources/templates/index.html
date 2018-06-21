@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments::head"></head>
+    <body>
+        <nav th:replace="fragments::nav"></nav>
+        <div class="container">
+            <h1 class="title" th:text="${title}"></h1>
+            <div style="text-align: center">
+                <form method="post" th:object="${customers}" class="spk-form">
+                    <p class="error" id="validateCustList"></p>
+                    <select class="form-control" name="customer" id="custSelect">
+                        <option value="0">Choose a Customer</option>
+                        <option style="text-align:center" th:each="customer:${customers}" th:value="${customer.id}" th:text="${customer.name}"></option>
+                    </select>
+                    <div>
+                        <br>
+                        <p class="error" id="dateError"></p>
+                        <div class="dateDiv">
+                            <label><span class="fa fa-calendar"></span> From</label>
+                            <input  readonly class="datepicker" name="dateFrom" id="dateFrom" placeholder="MM/DD/YYYY" value="MM/DD/YYYY">
+                        </div>
+                        <div class="dateDiv">
+                            <label><span class="fa fa-calendar"></span> To</label>
+                            <input readonly class="datepicker" name="dateTo" id="dateTo" placeholder="MM/DD/YYYY" value="MM/DD/YYYY">
+                        </div>
+                    </div>
+                    <input type="hidden" th:value="0" name="quantity">
+                    <input type="hidden" th:value="0" name="prodId">
+                    <input type="hidden" th:value="${stockError}" name="stockError" id="stockError">
+                    <input class="btn-grad search-btn" style="display:block;margin:0 auto;margin-top:30px" type="submit" value="Search" id="fetchProdBtn"/>
+                </form>
+            </div>
+            <div th:if="${customer}" style="text-align:center;padding-top:3%">
+                <table class="table center table-striped" style="">
+                    <h3 class="spk-blue" th:text="${customer.get().getName()}"></h3>
+                    <p class="spk-blue" th:text="'Products ' + ${period}"></p>
+                    <tr class="spk-gradient">
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Unit Cost</th>
+                        <th>Total Product Cost</th>
+                        <th>Add Product</th>
+                        <th>In Stock</th>
+                    </tr>
+                     <tr th:each="product, i : ${products}">
+                         <td class="left-align" th:id="${product[0]}"><span style="padding-right:5%">[[${i.index+1}]].</span>[[${product[1]}]]</td>
+                         <td th:text="${product[2]}"></td>
+                         <td th:text="${#numbers.formatCurrency(product[3])}"></td>
+                         <td th:text="${#numbers.formatCurrency(product[2] * product[3])}"></td>
+                         <td>
+                             <form method="post" th:object="${customer}">
+                                 <select  name="quantity">
+                                     <option th:each="i:${#numbers.sequence(1, 20)}"
+                                             th:text="'Qty: ' + ${i}"
+                                             th:value="${i.intValue()}">
+                                     </option>
+                                 </select>
+                                 <input type="hidden" th:field="*{id}" name="custId">
+                                 <input type="hidden" th:field="*{name}" name="custName">
+                                 <input type="hidden" th:value="${product[0]}" name="prodId">
+                                 <input type="hidden" id="hDateFrom" name="dateFrom" value="Fri Jun 01 15:08:29 CDT 2018">
+                                 <input type="hidden" name="hDateTo" value="Sat Jun 30 15:08:29 CDT 2018">
+                                 <button class="btn btn-link"><i class="fa fa-plus fa-lg add-btn"></i></button>
+                            </form>
+                         </td>
+                         <td th:text="${spkStock[i.index][2]}"></td>
+                    </tr>
+                    <tr class="spk-gradient" style="font-size:22px;font-weight:bold;text-align:center">
+                        <td colspan="6" th:text="'Total Price' + ${#numbers.formatCurrency(totalPrice)}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <footer th:replace="fragments::footer"></footer>
+    </body>
+</html>

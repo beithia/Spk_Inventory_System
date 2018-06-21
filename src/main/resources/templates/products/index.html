@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments::head"></head>
+    <body>
+        <nav th:replace="fragments::nav"></nav>
+        <div class="container">
+            <h1 class="title" th:text="${title}"></h1>
+
+            <br><br>
+            <p th:unless="${products} and ${products.iterator().hasNext()}">No products to Available Display</p>
+                <a href="/inventory/products/add-product" class="add-item-link" style="margin-left:85.4%">
+                    <i class="fa fa-plus fa-lg add-btn"></i>Product
+                </a>
+                <table class="table center table-striped">
+                        <tr class="spk-gradient">
+                            <th class="center-align">Product</th>
+                            <th class="center-align">Price</th>
+                            <th class="center-align">Stock</th>
+                            <th class="center-align">Add Stock</th>
+                            <th class="center-align">Action</th>
+                        </tr>
+                    <tr th:each="product, i:${products}">
+                        <td class="left-align"><span style="padding-right:3%">[[${i.index+1}]].</span>[[${product[1]}]]</td>
+                        <td class="center-align" th:text="${#numbers.formatCurrency(product[3])}"></td>
+                        <td class="center-align" th:text="${product[2]}"></td>
+                        <td class="center-align">
+                            <form method="post" action="/inventory/products/add-stock">
+                                <select  name="quantity">
+                                    <option th:each="i:${#numbers.sequence(1, 20)}"
+                                            th:text="'Qty: ' + ${i}"
+                                            th:value="${i}">
+                                    </option>
+                                </select>
+                                <input type="hidden" th:value="${product[0]}" name="prodId">
+                                <button style="padding:0px" class="btn btn-link"><i class="fa fa-plus fa-lg add-btn"></i></button>
+                            </form>
+                        </td>
+                        <td class="center-align" style="width:15%">
+                            <a style="padding-right:10px" th:href="'edit-product/' + ${product[0]}" ><i class="fa fa-edit fa-lg spk-blue"></i></a>
+                            <a th:href="'remove/' + ${product[0]}" ><i class="fa fa-trash fa-lg red"></i></a>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+        <footer th:replace="fragments::footer"></footer>
+    </body>
+</html>

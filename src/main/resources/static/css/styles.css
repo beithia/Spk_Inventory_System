@@ -1,0 +1,34 @@
+body {}
+h1 {color:#020450}
+h3 {color:#FFF}
+.container{min-height:480px}
+table.center {width:85%;margin-left:auto;margin-right:auto;}
+.spk-gradient{background-image: linear-gradient(to right, #020450 0%, #26a0da 50%, #020450 100%); color:#FFF;}
+.spk-form{margin: 0 auto;max-width:400px;padding-top:50px}
+.spk-form select {width:300px; margin:0 auto;color:#020450!important;text-align:center}
+.thead-dark {background-color: #020450!important; color:#FFF}
+.error {font-style: italic; color: red; font-size: 13px;}
+.logo {padding:10px;width:160px;height:auto}
+.title {color: #020450;text-align: center;padding-top:20px}
+.menu, .menu a {color: #FFF}
+.red {color:red;}
+.spk-blue {color:#020450}
+.btn-grad {border-radius:15px;background-image: linear-gradient(to right, #020450 0%, #26a0da 50%, #020450 100%); color:#FFF}
+.search-btn {width:120px; padding:10px}
+.add-item-link {text-decoration:none!important;color:#020450;}
+.add-item-link:hover{color: #2932be}
+.add-btn {width:20px;color:#18a801}
+.add-btn:hover {color:#0A7A06;}
+.center-align {text-align:center}
+.left-align {text-align:left}
+.dateDiv {display:inline-block;color:#020450;}
+.dateDiv label {display: block;font-weight:bold}
+.dateDiv input {color:#020450!important;text-align:center}
+.error {color:red;display:none}
+.sticky + .container {padding-top: 78px;}
+.sticky {position: fixed;top: 0;width: 100%;}
+.footer {margin-top:8%;background-image: linear-gradient(to right, #020450 0%, #26a0da 50%, #020450 100%); color:#FFF;height:5%}
+/*.footer div {background-image: linear-gradient(to right, #020450 0%, #26a0da 50%, #020450 100%); color:#FFF;}*/
+.footer a img{width:100px;height:auto;}
+
+

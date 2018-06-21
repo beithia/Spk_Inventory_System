@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments::head"></head>
+    <body>
+        <nav th:replace="fragments::nav"></nav>
+        <div class="container">
+            <h1 class="title" th:text="${title}"></h1>
+            <form method="post" th:object="${product}" class="spk-form">
+                <div class="form-group">
+                    <label th:for="name">Name</label>
+                    <input class="form-control" type="text" th:field="*{name}"/>
+                    <span th:errors="*{name}" class="error"></span>
+                </div>
+                <div class="form-group">
+                    <label th:for="price">Price</label>
+                    <input class="form-control" type="text" th:field="*{price}"/>
+                </div>
+                <input class="btn-grad" type="submit" value="Add Product" />
+            </form>
+        </div>
+        <footer th:replace="fragments::footer"></footer>
+    </body>
+</html>

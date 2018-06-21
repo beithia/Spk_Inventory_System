@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+    <head th:replace="fragments::head"></head>
+    <body>
+        <nav th:replace="fragments::nav"></nav>
+        <div class="container">
+            <h1 class="title" th:text="${title}"></h1>
+            <form method="post" th:action="@{/inventory/customers/edit-customer}" th:object="${customer}" class="spk-form">
+                <div class="form-group">
+                    <label th:for="name">Name</label>
+                    <input class="form-control" type="text" th:field="*{name}"/>
+                    <span th:errors="*{name}" class="error"></span>
+                </div>
+                <input class="form-control" type="hidden" th:field="*{id}"/>
+                <input class="btn-grad" type="submit" value="Update" />
+            </form>
+        </div>
+        <footer th:replace="fragments::footer"></footer>
+    </body>
+</html>
